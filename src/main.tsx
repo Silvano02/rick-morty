@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom/client'
 import App from './components/App'
 import './index.css'
 
+const GRAPHQL_URL = import.meta.env.VITE_RICKMORTY_GRAPHQL_URL
+
 const client = new ApolloClient({
-  uri: import.meta.env.VITE_RICKMORTY_GRAPHQL_URL,
+  uri: GRAPHQL_URL,
   cache: new InMemoryCache()
 })
-
-console.log(import.meta.env.VITE_RICKMORTY_GRAPHQL_URL)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
