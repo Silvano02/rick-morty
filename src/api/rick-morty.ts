@@ -1,8 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import { Character, Episode, Info } from 'rickmortyapi/dist/interfaces'
 
-export const baseURL = 'https://rickandmortyapi.com/api'
-
 export interface CharactersFilter {
   name?: string
   status?: 'Alive' | 'Dead' | 'unknown'
@@ -11,7 +9,7 @@ export interface CharactersFilter {
 }
 
 export const rickMortyApi = axios.create({
-  baseURL
+  baseURL: import.meta.env.VITE_RICKMORTY_API_URL
 })
 
 export const getEpisodes = async () => {
@@ -25,7 +23,9 @@ export const getEpisode = async (id: number) => {
 }
 
 export const getEpisodeID = (episode: string) => {
-  return parseInt(episode.replace(`${baseURL}/episode/`, ''))
+  return parseInt(
+    episode.replace(`${import.meta.env.VITE_RICKMORTY_API_URL}/episode/`, '')
+  )
 }
 
 export const getCharacters = async (
@@ -54,5 +54,10 @@ export const getCharacters = async (
 }
 
 export const getPageId = (pageUrl: string): number => {
-  return parseInt(pageUrl.replace(`${baseURL}/character?page=`, ''))
+  return parseInt(
+    pageUrl.replace(
+      `${import.meta.env.VITE_RICKMORTY_API_URL}/character?page=`,
+      ''
+    )
+  )
 }

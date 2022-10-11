@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react'
 import { CharactersFilter } from '../api/rick-morty'
-import { firsLetterToUpperCase } from '../utilities'
+import { firstLetterToUpperCase } from '../utilities'
 
 interface FiltersBarProps {
   filter: CharactersFilter
@@ -23,7 +23,7 @@ const FiltersBar = ({ filter, useFilter }: FiltersBarProps) => {
                 })
               }
             >
-              {`${firsLetterToUpperCase(key)}: ${firsLetterToUpperCase(
+              {`${firstLetterToUpperCase(key)}: ${firstLetterToUpperCase(
                 currentValue
               )} x`}
             </div>

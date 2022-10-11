@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
 import { Character as Char } from 'rickmortyapi/dist/interfaces'
-import { baseURL, getEpisode, getEpisodeID } from '../api/rick-morty'
+import { getEpisode, getEpisodeID } from '../api/rick-morty'
+import { firstLetterToUpperCase } from '../utilities/'
 
 interface CharacterProps {
   character: Char
@@ -12,7 +13,10 @@ const Character = ({ character, filterSet }: CharacterProps) => {
   const [imgLoaded, imgLoadedSet] = useState(false)
 
   const episodeId = useMemo(() => {
-    return character.episode[0].replace(`${baseURL}/episode/`, '')
+    return character.episode[0].replace(
+      `${import.meta.env.VITE_RICKMORTY_API_URL}/episode/`,
+      ''
+    )
   }, [character])
 
   const { data: episode } = useQuery(['episode', episodeId], () =>
@@ -51,7 +55,7 @@ const Character = ({ character, filterSet }: CharacterProps) => {
               })
             }
           >
-            {status === 'unknown' ? 'Unknown' : status}
+            {firstLetterToUpperCase(status)}
           </div>
         </div>
         <label className="text-gray-400">Species:</label>
@@ -77,7 +81,7 @@ const Character = ({ character, filterSet }: CharacterProps) => {
         >
           {gender === 'unknown' ? 'Unknown' : gender}
         </div>
-        <label className="text-gray-400">Firs seen in:</label>
+        <label className="text-gray-400">First seen in:</label>
         <div>{episode?.name}</div>
         <label className="text-gray-400">Location:</label>
         <div>{location.name}</div>
