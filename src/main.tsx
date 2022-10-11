@@ -9,6 +9,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+console.log(import.meta.env.VITE_RICKMORTY_GRAPHQL_URL)
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
