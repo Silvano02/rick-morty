@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@apollo/client'
 import { SetStateAction, useEffect, useState } from 'react'
-import { getCharacters, CharactersFilter } from '../api/rick-morty'
+import { GET_CHARACTERS, CharactersFilter } from '../graphql/rick-morty'
 import Characters from './Characters'
 import FiltersBar from './FiltersBar'
 import PageNavigation from './PageNavigation'
@@ -44,11 +44,13 @@ const App = () => {
     return () => clearTimeout(delay)
   }, [search])
 
-  const {
-    data: characters,
-    isLoading,
-    isError
-  } = useQuery(['characters', page, filter], () => getCharacters(page, filter))
+  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+    variables: { filter: { ...filter, name: search }, page }
+  })
+
+  console.log(data)
+
+  const { characters } = data ? data : { characters: {} }
 
   return (
     <div className="flex flex-col gap-4 pt-6 pb-16 w-full">
@@ -61,17 +63,17 @@ const App = () => {
       <SearchBar search={search} searchSet={searchSet} />
       <FiltersBar filter={filter} useFilter={useFilter} />
       <PageNavigation
-        totalCount={characters?.info?.count ? characters?.info?.count : 0}
+        totalCount={characters.info?.count ? characters?.info?.count : 0}
         pageSize={20}
         currentPage={page}
         onPageClick={pageSet}
-        error={isError}
+        error={error ? true : false}
         siblings={siblings}
       />
       <Characters
         characters={characters ? characters : {}}
-        isLoading={isLoading}
-        isError={isError}
+        isLoading={loading}
+        isError={error ? true : false}
         useFilter={useFilter}
       />
       <PageNavigation
@@ -79,7 +81,7 @@ const App = () => {
         pageSize={20}
         currentPage={page}
         onPageClick={pageSet}
-        error={isError}
+        error={!!error}
         siblings={siblings}
       />
     </div>

@@ -1,29 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
-import { Character as Char } from 'rickmortyapi/dist/interfaces'
-import { getEpisode, getEpisodeID } from '../api/rick-morty'
+import { useState } from 'react'
+import { Character as Char } from '../graphql/rick-morty'
 import { firstLetterToUpperCase } from '../utilities/'
 
 interface CharacterProps {
   character: Char
   filterSet: React.Dispatch<React.SetStateAction<{}>>
 }
-
 const Character = ({ character, filterSet }: CharacterProps) => {
   const [imgLoaded, imgLoadedSet] = useState(false)
 
-  const episodeId = useMemo(() => {
-    return character.episode[0].replace(
-      `${import.meta.env.VITE_RICKMORTY_API_URL}/episode/`,
-      ''
-    )
-  }, [character])
-
-  const { data: episode } = useQuery(['episode', episodeId], () =>
-    getEpisode(getEpisodeID(character.episode[0]))
-  )
-
-  const { name, species, image, status, gender, location } = character
+  const { name, species, image, status, gender, location, episode } = character
 
   return (
     <div className="flex flex-col border border-lime-800 rounded-xl bg-gray-900 w-full">
@@ -82,7 +68,7 @@ const Character = ({ character, filterSet }: CharacterProps) => {
           {gender === 'unknown' ? 'Unknown' : gender}
         </div>
         <label className="text-gray-400">First seen in:</label>
-        <div>{episode?.name}</div>
+        <div>{episode[0].name}</div>
         <label className="text-gray-400">Location:</label>
         <div>{location.name}</div>
       </div>

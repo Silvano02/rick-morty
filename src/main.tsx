@@ -1,17 +1,18 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './components/App'
 import './index.css'
 
-const queryClient = new QueryClient()
+const client = new ApolloClient({
+  uri: import.meta.env.VITE_RICKMORTY_GRAPHQL_URL,
+  cache: new InMemoryCache()
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <ApolloProvider client={client}>
       <App />
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    </ApolloProvider>
   </React.StrictMode>
 )

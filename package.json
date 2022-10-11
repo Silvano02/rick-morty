@@ -9,16 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.0",
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^2.0.10",
     "@tailwindcss/forms": "^0.5.3",
-    "@tanstack/react-query": "^4.2.3",
-    "@tanstack/react-query-devtools": "^4.2.3",
-    "axios": "^0.27.2",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-pagination-bar": "^2.0.1",
-    "rickmortyapi": "^1.0.0",
     "tailwindcss": "^3.1.8"
   },
   "devDependencies": {

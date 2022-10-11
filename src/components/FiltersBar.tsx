@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react'
-import { CharactersFilter } from '../api/rick-morty'
+import { CharactersFilter } from '../graphql/rick-morty'
 import { firstLetterToUpperCase } from '../utilities'
 
 interface FiltersBarProps {

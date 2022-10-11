@@ -1,11 +1,10 @@
 import Character from './Character'
-import { Character as Cha, Info } from 'rickmortyapi/dist/interfaces'
+import { Character as Cha, Info } from '../graphql/rick-morty'
 import { Fragment } from 'react'
 import 'react-pagination-bar/dist/index.css'
-import { Character as Char } from 'rickmortyapi/dist/interfaces'
 
 interface CharactersProps {
-  characters: Info<Char[]>
+  characters: Info<Cha[]>
   isLoading: boolean
   isError: boolean
   useFilter: React.Dispatch<React.SetStateAction<{}>>
