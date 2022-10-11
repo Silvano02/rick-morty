@@ -8,8 +8,10 @@ export interface CharactersFilter {
   gender?: string
 }
 
+export const RICKMORTY_API_URL = import.meta.env.VITE_RICKMORTY_API_URL
+
 export const rickMortyApi = axios.create({
-  baseURL: import.meta.env.VITE_RICKMORTY_API_URL
+  baseURL: RICKMORTY_API_URL
 })
 
 export const getEpisodes = async () => {
@@ -23,9 +25,7 @@ export const getEpisode = async (id: number) => {
 }
 
 export const getEpisodeID = (episode: string) => {
-  return parseInt(
-    episode.replace(`${import.meta.env.VITE_RICKMORTY_API_URL}/episode/`, '')
-  )
+  return parseInt(episode.replace(`${RICKMORTY_API_URL}/episode/`, ''))
 }
 
 export const getCharacters = async (
@@ -54,10 +54,5 @@ export const getCharacters = async (
 }
 
 export const getPageId = (pageUrl: string): number => {
-  return parseInt(
-    pageUrl.replace(
-      `${import.meta.env.VITE_RICKMORTY_API_URL}/character?page=`,
-      ''
-    )
-  )
+  return parseInt(pageUrl.replace(`${RICKMORTY_API_URL}/character?page=`, ''))
 }

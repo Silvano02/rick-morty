@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
 import { Character as Char } from 'rickmortyapi/dist/interfaces'
-import { getEpisode, getEpisodeID } from '../api/rick-morty'
+import { getEpisode, getEpisodeID, RICKMORTY_API_URL } from '../api/rick-morty'
 import { firstLetterToUpperCase } from '../utilities/'
 
 interface CharacterProps {
@@ -13,10 +13,7 @@ const Character = ({ character, filterSet }: CharacterProps) => {
   const [imgLoaded, imgLoadedSet] = useState(false)
 
   const episodeId = useMemo(() => {
-    return character.episode[0].replace(
-      `${import.meta.env.VITE_RICKMORTY_API_URL}/episode/`,
-      ''
-    )
+    return character.episode[0].replace(`${RICKMORTY_API_URL}/episode/`, '')
   }, [character])
 
   const { data: episode } = useQuery(['episode', episodeId], () =>
