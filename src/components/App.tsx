@@ -48,8 +48,6 @@ const App = () => {
     variables: { filter: { ...filter, name: search }, page }
   })
 
-  console.log(data)
-
   const { characters } = data ? data : { characters: {} }
 
   return (
